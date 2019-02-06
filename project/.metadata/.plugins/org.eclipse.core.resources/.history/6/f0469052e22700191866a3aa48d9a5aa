@@ -1,0 +1,29 @@
+/**
+ * 
+ */
+package service;
+
+import model.Person;
+
+/**
+ * @author Admin
+ *
+ */
+public class PersonMapper {
+	
+	private static final int ID = "id";
+	private static final String NAME = "name";
+	
+	public Person convertFromJSONObjectToCompetitionObject(JSONObject object) {
+		Person person = null;
+
+		if (null != object) {
+			int id = object.getInt(ID);
+			String name = object.getString(NAME);
+			Person person= new Person(id, name, null, null);
+		}
+
+		return person;
+	}
+	
+}

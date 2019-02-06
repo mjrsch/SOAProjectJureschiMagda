@@ -1,0 +1,112 @@
+/**
+ * 
+ */
+package service;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.stereotype.Service;
+
+import model.Person;
+
+/**
+ * @author Admin
+ *
+ */
+@Service
+public class PersonService {
+
+	ArrayList<Person> persons = new ArrayList<Person>();
+
+	public PersonService() {
+		Person p = new Person();
+		p.setId(1);
+		p.setAge(21);
+		p.setFirstName("Steve");
+		p.setLastName("Smith");
+		persons.add(p);
+
+		p = new Person();
+		p.setId(2);
+		p.setAge(25);
+		p.setFirstName("Tom");
+		p.setLastName("Brown");
+		persons.add(p);
+	}
+
+	public Person getPerson(int id) {
+		for (Person person : persons) {
+			if (person.getId() == id) {
+				return person;
+			}
+		}
+		return null;
+	}
+
+	
+	public ArrayList<Person> getAll() {
+		System.out.println("ceva");
+		return persons;
+	}
+	
+	
+	public ArrayList<Person> getAllFromServer() throws IOException{
+		List<Person> personsFromSrv= new ArrayList<Person>();
+		System.out.println("************************************* integration service");
+		URL url = new URL("https://jsonplaceholder.typicode.com/users");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		// First version
+		/*
+		InputStream is = conn.getInputStream();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		String line = null;
+		String output;
+		while ((line = br.readLine()) != null) {
+			//JSONObject array;
+			try {
+				//array = new JSONObject(line);
+				output = line.replace("[", "").replace("]", "");
+			    JSONArray jsonArray = new JSONArray(output); 
+			    System.out.println(jsonArray.toString());
+			}catch (Exception e) {
+				System.out.println("There was en error" + e);
+			}
+		}
+		*/
+		//Horea version
+		InputStream is = conn.getInputStream();
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String line;
+        StringBuilder jsonBuilder = new StringBuilder();
+        JSONObject  obj;
+        
+        while ((line = br.readLine()) != null) {
+           // jsonBuilder.append(line.substring(line.indexOf(":") + 1));
+        	jsonBuilder.append(line);
+        }
+        String json = jsonBuilder.toString();
+        json = json.replace("\n", "").replace("\r", "");
+        //json = "[" + json.substring(0, json.length()-1) + "]";
+        System.out.println(json);
+        try {
+			obj = new JSONObject (json);
+		} catch (JSONException e) {
+			
+			e.printStackTrace();
+		}
+        
+		
+		return null;
+	}
+
+}

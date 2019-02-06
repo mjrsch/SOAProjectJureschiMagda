@@ -1,0 +1,47 @@
+/**
+ * 
+ */
+package service;
+
+import java.util.ArrayList;
+
+import org.springframework.stereotype.Service;
+
+import model.Person;
+
+/**
+ * @author Magda
+ *
+ */
+@Service
+public class ClientPersonService {
+	
+	
+	ArrayList<Person> persons = new ArrayList<Person>();
+
+	/**
+	 * Gets a person by id
+	 * 
+	 * @param id
+	 *            the id of the person
+	 * @return the corresponding person for the given id or null in case there
+	 *         is no assignment for the id
+	 */
+	public Person getPersonById(int id) {
+		for (Person person : persons) {
+			if (person.getId() == id) {
+				return person;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Provides a list with all the existing persons stored
+	 * 
+	 * @return the list with all the persons
+	 */
+	public ArrayList<Person> getAll() {
+		return persons;
+	}
+}

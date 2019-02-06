@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+ <h1>Hello</h1>  
+ 
+ <center>
+	<table  class="table"  >
+		<thead>
+			<tr>
+				<th scope="row">Id</th>
+				<th scope="row">Name</th>
+				<th scope="row">Email</th>
+				<th scope="row">Street</th>
+				<th scope="row">Suite</th>
+				<th scope="row">City</th>
+				<th scope="row">Zipcode</th>
+			</tr>
+
+			<c:forEach var="i" items="${list}">
+				<tr>
+					<td><c:out value="${i.id }" /></td>
+					<td><c:out value="${i.name}" /></td>
+					<td><c:out value="${i.email}" /></td>
+					<td><c:out value="${i.street}" /></td>
+					<td><c:out value="${i.suite}" /></td>
+					<td><c:out value="${i.city}" /></td>
+					<td><c:out value="${i.zipcode}" /></td>
+				</tr>
+			</c:forEach>
+	</table>
+	</center>  
+</body>
+</html>

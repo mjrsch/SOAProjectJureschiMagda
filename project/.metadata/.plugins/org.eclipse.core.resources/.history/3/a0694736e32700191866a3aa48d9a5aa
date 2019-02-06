@@ -1,0 +1,33 @@
+/**
+ * 
+ */
+package service;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import model.Person;
+
+/**
+ * @author Admin
+ *
+ */
+public class PersonMapper {
+
+	private static final String ID = "id";
+	private static final String NAME = "name";
+
+	public Person convertFromJSONObjectToCompetitionObject(JSONObject object)
+			throws NumberFormatException, JSONException {
+		Person person = null;
+
+		if (null != object) {
+			int id = Integer.parseInt(object.getString(ID));
+			String name = object.getString(NAME);
+			person = new Person(id, name, "some name", 12);
+		}
+
+		return person;
+	}
+
+}

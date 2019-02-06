@@ -1,0 +1,58 @@
+/**
+ * 
+ */
+package model;
+
+/**
+ * @author Admin
+ *
+ */
+public class Person {
+
+	private int id;
+	private String name;
+	private String email;
+	private String street;
+	private String suite;
+	private String city;
+	private String zipcode;
+	
+	/**
+	 * Default constructor
+	 */
+	public Person() {}
+	
+	/**
+	 * Constructor with args
+	 * @param id
+	 * the id
+	 * @param name
+	 * the name of the person
+	 * @param email
+	 * the email of the person
+	 * @param street
+	 * the street name
+	 * @param suite
+	 * the suite
+	 * @param city
+	 * the city name
+	 * @param zipcode
+	 * the zipcode
+	 */
+	public Person(int id, String name, String email, String street, String suite, String city, String zipcode) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.street = street;
+		this.suite = suite;
+		this.city = city;
+		this.zipcode = zipcode;
+	}
+
+	
+	
+	
+	
+	
+}

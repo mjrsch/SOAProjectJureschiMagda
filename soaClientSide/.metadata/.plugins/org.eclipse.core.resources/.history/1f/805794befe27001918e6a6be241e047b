@@ -1,0 +1,16 @@
+/**
+ * 
+ */
+package controller;
+
+/**
+ * @author Magda
+ *
+ */
+
+@CrossOrigin
+@RestController
+@RequestMapping("/persons")
+public class ClientPersonController {
+
+}

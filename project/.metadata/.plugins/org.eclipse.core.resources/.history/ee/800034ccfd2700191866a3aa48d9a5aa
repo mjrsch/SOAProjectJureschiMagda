@@ -1,0 +1,94 @@
+/**
+ * 
+ */
+package service;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import model.Person;
+
+/**
+ * @author Admin
+ *
+ */
+@Service
+public class PersonService {
+
+	@Autowired
+	PersonMapper personMapper;
+
+	ArrayList<Person> persons = new ArrayList<Person>();
+
+	/**
+	 * Gets a person by id
+	 * 
+	 * @param id
+	 *            the id of the person
+	 * @return the corresponding person for the given id or null in case there
+	 *         is no assignment for the id
+	 */
+	public Person getPersonById(int id) {
+		for (Person person : persons) {
+			if (person.getId() == id) {
+				return person;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Provides a list with all the existing persons stored
+	 * 
+	 * @return the list with all the persons
+	 */
+	public ArrayList<Person> getAll() {
+		return persons;
+	}
+
+	public ArrayList<Person> getAllFromServer() throws IOException, JSONException {
+		ArrayList<Person> personsFromSrv = new ArrayList<Person>();
+		System.out.println("************************************* integration service");
+		URL url = new URL("https://jsonplaceholder.typicode.com/users");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		InputStream is = conn.getInputStream();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		String line;
+		StringBuilder jsonBuilder = new StringBuilder();
+		JSONArray obj = null;
+
+		while ((line = br.readLine()) != null) {
+			jsonBuilder.append(line);
+		}
+		String json = jsonBuilder.toString();
+		json = json.replace("\n", "").replace("\r", "");
+		System.out.println(json);
+		try {
+			obj = new JSONArray(json);
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+
+		for (int i = 0; i < obj.length(); i++) {
+			JSONObject person = obj.getJSONObject(i);
+			Person p = personMapper.convertFromJSONObjectToPersonObject(person);
+			personsFromSrv.add(p);
+		}
+
+		return personsFromSrv;
+	}
+
+}

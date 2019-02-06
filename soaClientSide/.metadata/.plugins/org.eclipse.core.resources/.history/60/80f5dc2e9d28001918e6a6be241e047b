@@ -1,0 +1,59 @@
+/**
+ * 
+ */
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import model.Person;
+import service.ClientPersonService;
+
+/**
+ * @author Magda
+ *
+ */
+
+@CrossOrigin
+@RestController
+@RequestMapping("/persons")
+public class ClientPersonController {
+	
+	@Autowired
+	ClientPersonService personService;
+	
+	private static final String URL="http://localhost:8080/persons";
+	private RestTemplate rest = new RestTemplate();
+
+	/**
+	 * Gets all the stored persons
+	 * 
+	 * @return a list containing all the stored persons
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/all")
+	public ArrayList<Person> getAll() {
+		System.out.println("Calling serverSide...");;
+		return rest.getForObject(URL, ArrayList.class);
+	}
+
+	/**
+	 * Returns the corresponding entity for the given id
+	 * 
+	 * @param id
+	 *            the given id
+	 * @return the corresponding entity
+	 */
+	@RequestMapping("{id}")
+	public Person getPerson(@PathVariable("id") int id) {
+		return personService.getPersonById(id);
+	}
+
+}

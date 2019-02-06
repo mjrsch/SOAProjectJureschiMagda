@@ -1,0 +1,39 @@
+/**
+ * 
+ */
+package service;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import model.Person;
+
+/**
+ * @author Admin
+ *
+ */
+public class PersonMapper {
+	
+	private static final String ID = "id";
+	private static final String NAME = "name";
+	
+	public Person convertFromJSONObjectToCompetitionObject(JSONObject object) {
+		Person person = null;
+
+		if (null != object) {
+			int id=0;
+			String name="something";
+			try {
+				id= Integer.parseInt(object.getString(ID));
+				name = object.getString(NAME);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 person= new Person(id, name, "some name", 12);
+		}
+
+		return person;
+	}
+	
+}

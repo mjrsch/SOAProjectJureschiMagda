@@ -1,0 +1,66 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.net.URLDecoder"%>
+
+<html>
+<head>
+<link rel="stylesheet" href="css/app.css"></link>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script>
+function winOpen(){
+	window.open("alert.jsp");
+}
+</script>
+</head>
+<body>
+	<center>
+		<h2 class="display-2" class="text-muted">FOOTBALL COMPETITIONS</h2>
+	</center>
+	<img alt="" src="images/1.jpg" class="img-rounded">
+	<form action="/" method="get">
+		<br>Season: <input type="text" name="season" value="${URLDecoder.decode(web)}"> <input
+			type="submit" value="Filter by season" />
+	</form>
+	<br>
+	AICI:::::::::::;;${gasit }
+	<form action="/" method="post">
+		Id:<input type="text" name="id" class=" .col-lg-*"/><br> Caption:<input
+			type="text" name="caption" /><br> League:<input type="text"
+			name="league" /><br> Year:<input type="text" name="year" /><br>
+		Number of teams:<input type="text" name="numberOfTeams" /><br>
+		Number of games:<input type="text" name="numberOfGames" /><br>
+		Last updated:<input type="text" name="lastUpdated" /><br> <input
+			type="submit" value="Add competition" name="Add competition"
+		 />
+	</form>
+
+<center>
+	<table  class="table"  >
+		<thead>
+			<tr>
+				<th scope="row">Id</th>
+				<th scope="row">Caption</th>
+				<th scope="row">League</th>
+				<th scope="row">Year</th>
+				<th scope="row">Number of teams</th>
+				<th scope="row">Number of games</th>
+				<th scope="row">Last updated</th>
+			</tr>
+
+			<c:forEach var="i" items="${list}">
+				<tr>
+					<td><c:out value="${i.id }" /></td>
+					<td><c:out value="${i.caption}" /></td>
+					<td><c:out value="${i.league}" /></td>
+					<td><c:out value="${i.year}" /></td>
+					<td><c:out value="${i.numberOfTeams}" /></td>
+					<td><c:out value="${i.numberOfGames}" /></td>
+					<td><c:out value="${i.lastUpdated}" /></td>
+				</tr>
+			</c:forEach>
+	</table>
+	</center>
+</body>
+</html>

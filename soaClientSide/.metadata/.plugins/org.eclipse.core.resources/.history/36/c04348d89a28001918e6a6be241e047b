@@ -1,0 +1,49 @@
+/**
+ * 
+ */
+package controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import model.Person;
+
+/**
+ * @author Magda
+ *
+ */
+
+@CrossOrigin
+@RestController
+@RequestMapping("/persons")
+public class ClientPersonController {
+	
+	@Autowired
+	ClientPersonService personService;
+
+	/**
+	 * Gets all the stored persons
+	 * 
+	 * @return a list containing all the stored persons
+	 */
+	@RequestMapping("/all")
+	public ArrayList<Person> getAll() {
+		return personService.getAll();
+	}
+
+	/**
+	 * Returns the corresponding entity for the given id
+	 * 
+	 * @param id
+	 *            the given id
+	 * @return the corresponding entity
+	 */
+	@RequestMapping("{id}")
+	public Person getPerson(@PathVariable("id") int id) {
+		return personService.getPersonById(id);
+	}
+
+}

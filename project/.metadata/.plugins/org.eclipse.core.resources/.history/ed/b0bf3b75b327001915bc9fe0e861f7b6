@@ -1,0 +1,57 @@
+/**
+ * 
+ */
+package service;
+
+import java.util.ArrayList;
+
+import org.springframework.stereotype.Service;
+
+import model.Person;
+
+/**
+ * @author Admin
+ *
+ */
+@Service
+public class PersonService {
+
+	ArrayList<Person> persons = new ArrayList<Person>();
+
+	public PersonService() {
+		Person p = new Person();
+		p.setId(1);
+		p.setAge(21);
+		p.setFirstName("Steve");
+		p.setLastName("Smith");
+		persons.add(p);
+
+		p = new Person();
+		p.setId(2);
+		p.setAge(25);
+		p.setFirstName("Tom");
+		p.setLastName("Brown");
+		persons.add(p);
+	}
+
+	public Person getPerson(int id) {
+		for (Person person : persons) {
+			if (person.getId() == id) {
+				return person;
+			}
+		}
+		return null;
+	}
+
+	
+	public ArrayList<Person> getAll() {
+		System.out.println("ceva");
+		return persons;
+	}
+	
+	
+	public ArrayList<Person> getAllFromServer(){
+		return null;
+	}
+
+}
